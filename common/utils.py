@@ -1,3 +1,4 @@
+from ast import arg
 import numpy as np
 import inspect
 import functools
@@ -30,25 +31,22 @@ def store_args(method):
     return wrapper
 
 
-def make_env(args):
-    from multiagent.environment import MultiAgentEnv
-    import multiagent.scenarios as scenarios
+def make_env(args): #这一块是怎样改的
+    '''获取场景以及对应的维度，但是这里的所以可以进行初始化
+    '''
 
-    # load scenario from script
-    scenario = scenarios.load(args.scenario_name + ".py").Scenario()
+    from ENV import env_
+    env = env_.Cenv(args)#初始化环境
+    args.n_agents = args.APs_length #训练三个AP
 
-    # create world
-    world = scenario.make_world()
-    # create multiagent environment
-    env = MultiAgentEnv(world, scenario.reset_world, scenario.reward, scenario.observation)
-    # env = MultiAgentEnv(world)
-    args.n_players = env.n  # 包含敌人的所有玩家个数
-    args.n_agents = env.n - args.num_adversaries  # 需要操控的玩家个数，虽然敌人也可以控制，但是双方都学习的话需要不同的算法
-    args.obs_shape = [env.observation_space[i].shape[0] for i in range(args.n_agents)]  # 每一维代表该agent的obs维度
-    action_shape = []
-    for content in env.action_space:
-        action_shape.append(content.n)
-    args.action_shape = action_shape[:args.n_agents]  # 每一维代表该agent的act维度
+
+    # args.APofEndDevices 里面存储每个AP相连的EndDevice个数
+    # 将state设置为 功率 + [带宽段数量] （为0表示不需要该段频谱 为1表示需要该段频谱） 准备先让每个用户只打算接入一个频段 其实就是用独热编码
+    args.obs_shape = [(1+args.numofBand)*args.APofEndDevices[i] for i in range(args.n_agents)]  # 每一维代表该agent的obs维度 观测值的维度
+    ###将用户需求如何转换成state 这个用户需求怎样写
+    ''''''#action同state一样 
+    args.action_shape = [(1+args.numofBand)*args.APofEndDevices[i] for i in range(args.n_agents)]  #其实action是一样的 
+    ###action 又应该是什么
     args.high_action = 1
     args.low_action = -1
     return env, args

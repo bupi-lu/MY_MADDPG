@@ -1,15 +1,21 @@
 import argparse
-
+from email.policy import default
+import json
 """
 Here are the param for the training
 
 """
-
+class Dict2Class(object):
+    def __init__(self, my_dict):
+        for key in my_dict:
+            setattr(self, key, my_dict[key])
 
 def get_args():
     parser = argparse.ArgumentParser("Reinforcement Learning experiments for multiagent environments")
     # Environment
+    parser.add_argument('-f','--configFile',type=str,help='从配置文件读取配置')
     parser.add_argument("--scenario-name", type=str, default="simple_tag", help="name of the scenario script")
+    parser.add_argument("--APs-length",type = int ,default = 3, help ="要训练的三个AP数量")
     parser.add_argument("--max-episode-len", type=int, default=100, help="maximum episode length")
     parser.add_argument("--time-steps", type=int, default=2000000, help="number of time steps")
     # 一个地图最多env.n个agents，用户可以定义min(env.n,num-adversaries)个敌人，剩下的是好的agent
@@ -34,5 +40,15 @@ def get_args():
     parser.add_argument("--evaluate", type=bool, default=False, help="whether to evaluate the model")
     parser.add_argument("--evaluate-rate", type=int, default=1000, help="how often to evaluate model")
     args = parser.parse_args()
+    configdict = args.__dict__
+    if configdict['configFile'] is not None:
+        print("loading config:{}...".format(configdict['configFile']))
+        ## configPath = "../config{}.json".format(configdict['nodeRole'])
 
-    return args
+        with open(configdict['configFile'],'r') as f:
+            argsFile = json.load(f)
+        for item in argsFile:
+            configdict[item] = argsFile[item]
+    config = Dict2Class(configdict)
+
+    return config

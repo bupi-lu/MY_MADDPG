@@ -1,0 +1,63 @@
+{
+    "nodeRole":"leader",
+
+
+    "silenceInterval":10,
+    "actionInterval":50,
+
+    "ip":"localhost",
+    "port":50000,
+    
+    "deadInterval":30,
+    "checkInterval":10,
+    "requireWaitInterval":20,
+    "refusedInterval":10,
+    "overtimeInterval":10,
+    "keepAliveInterval":5,
+    "walletAccount":"Devin",
+    "walletPasswd":"SDX1998ding",
+    "maxCheckChainLength":10, 
+    "updateDeadInterval":600,
+    "powerBound":[0,10],
+    "numofBand":12,
+    "numofDevices":5,
+
+
+    "learningRateActor":0.01,
+    "learningRateCritic":0.01,
+    "learningRateLstm":0.01,
+    "ddpgBatchSize":500,
+    "ddpgRAMSize":5000,
+    "lstmBatchSize":50,
+    "lstmRAMSize":50,
+    "gamma":0.99,
+    "tau":0.001,
+
+    "EnableFL": "True",
+    "FL_CommunicatingWay":"BLOCK",
+    "FL_AggreMaxInterval":50,
+    "aggreInterval":10,
+    "ddpgOptimiseInterval":10,
+    "lstmOptimiseInterval":10,
+
+    "topo":{
+        "numofNodes":3,
+        "nodes":["1","2","3"],
+        "topos":{
+            "1":{
+                "neighbor":["2","3"]
+            },
+            "2":{
+                "neighbor":["1","3"]
+            },
+            "3":{
+                "neighbor":["1","2"]
+            }
+          }
+    },
+
+    "virtualENVServer":{
+        "ip":"172.51.0.2",
+        "port":50000
+    }
+}

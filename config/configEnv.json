@@ -1,0 +1,80 @@
+{
+    "nodeRole":"env",
+
+    "silenceInterval":10,
+    "actionInterval":50,
+
+    "ip":"localhost",
+    "port":50000,
+    "mac":"mac1",
+    
+    "requireWaitInterval":20,
+    "refusedInterval":10,
+    "overtimeInterval":10,
+    "keepAliveInterval":5,
+    "aggreInterval":10,
+    "walletAccount":"Devin",
+    "walletPasswd":"SDX1998ding",
+    "maxCheckChainLength":10, 
+	"APofEndDevices":[5,7,7],
+	"maxRequestbands":5,
+
+    "bandWidth":10,
+    "numofBand":12,
+	"powerBound":[0,10],
+    "L0":61094,
+    "alpha":2.75,
+    "virtualENVServer":{
+        "ip":"localhost",
+        "port":50000
+    },
+
+	"APs":{
+		"masterAP":{
+			"coordinate":[0,0]
+		},
+		"slaveAP":[
+			{
+				"id":"mac1",
+				"coordinate":[100,0],
+				"devices":[
+					[100,10],
+					[100,-10],
+					[90,0],
+					[110,0],
+					[105,5]
+				]
+			},
+			{
+				"id":"mac2",
+				"coordinate":[0,100],
+				"devices":[
+					[0,110],
+					[0,90],
+					[10,100],
+					[-15,100],
+					[5,105],
+					[8,90],
+					[-10,80]
+				]
+			},
+			{
+				"id":"mac3",
+				"coordinate":[0,-100],
+				"devices":[
+					[10,-100],
+					[-15,-100],
+					[0,-110],
+					[0,-90],
+					[10,-90],
+					[8,-108],
+					[-20,-101]
+				]
+			}
+		]
+	}
+
+
+
+	
+}

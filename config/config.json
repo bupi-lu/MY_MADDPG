@@ -1,0 +1,70 @@
+{
+    "nodeRole":"web",
+    "model":{
+        "type":"sadrl",
+        "config":{
+            "learningRateActor":0.9,
+            "learningRateCritic":0.9,
+            "memoryCapacity":5000,
+            "Tau":0.05,
+            "batchSize":5000,
+            "gamma":0.996,
+            "epsBegin":0.9,
+            "epsEnd":0.02,
+            "epsDecay":4000,
+            "iter":128
+        } 
+    },
+
+    "silenceInterval":10,
+    "actionInterval":50,
+
+    "webServerIP":"172.17.0.2",
+    "webServerPort":50001,
+    "workerListeningAddrIP":"172.17.0.3",
+    "workerListeningAddrPort":50002,
+    
+    "requireWaitInterval":5,
+    "refusedInterval":10,
+    "overtimeInterval":10,
+    "keepaliveInterval":5,
+    "aggreInterval":10,
+    "walletAccount":"Devin",
+    "walletPasswd":"SDX1998ding",
+    "maxCheckChainLength":10, 
+
+
+    "topo":{
+        "numofNodes":3,
+        "nodes":["mac1","mac2","mac3"],
+        "topos":{
+            "mac1":{
+                "ip":"ip1",
+                "neighbor":["mac2","mac3"]
+            },
+            "mac2":{
+                "ip":"ip2",
+                "neighbor":["mac1","mac3"]
+            },
+            "mac3":{
+                "ip":"ip3",
+                "neighbor":["mac1","mac2"]
+            }
+        }
+    },
+
+    "virtualENVServerIP": "localhost",
+    "virtualENVServerPort":1080,
+    "fixEndDeviceNum2Max":1,
+    "fixActiveEndDevice2Max":1,
+    "numofAPs":3,
+    "maxSteps":200,
+    "bandwidth":10,
+    "numofBand":10,
+    "powerBound":[0.1,10],
+    "rangeofDistance2EndDevice":[10,20],
+    "L0":61094,
+    "alpha":2.75,
+    "maxNumberofEndDevice":20,
+    "minNumberofEndDevice":10
+}

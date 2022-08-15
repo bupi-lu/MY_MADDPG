@@ -17,7 +17,7 @@ class Actor(nn.Module):
         x = F.relu(self.fc1(x))
         x = F.relu(self.fc2(x))
         x = F.relu(self.fc3(x))
-        actions = self.max_action * torch.tanh(self.action_out(x))
+        actions = (torch.tanh(self.action_out(x))+1)/2
 
         return actions
 
@@ -32,10 +32,14 @@ class Critic(nn.Module):
         self.q_out = nn.Linear(64, 1)
 
     def forward(self, state, action):
-        state = torch.cat(state, dim=1)
+
+        state = torch.cat(state, dim=1).to("cuda:0")
+
         for i in range(len(action)):
             action[i] /= self.max_action
-        action = torch.cat(action, dim=1)
+        # print(action)
+        action = torch.cat(action, dim=1).to("cuda:0")
+
         x = torch.cat([state, action], dim=1)
         x = F.relu(self.fc1(x))
         x = F.relu(self.fc2(x))
